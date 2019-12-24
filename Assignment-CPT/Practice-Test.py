@@ -18,10 +18,37 @@ def draw_background_scenery():
     arcade.draw_rectangle_filled(1200, 100, 400, 200, arcade.color.GREEN)
 
     # draw water
-    arcade.draw_rectangle_filled(700, 70, 600, 50, arcade.color.BLUE)
+    arcade.draw_rectangle_filled(700, 70, 600, 200, arcade.color.BLUE)
 
     # draw clouds and sun
-    arcade.draw_circle_filled(300, 650, 40, arcade.color.YELLOW)
+    arcade.draw_circle_filled(200, 700, 70, arcade.color.YELLOW)
+
+    # draw clouds
+    texture_1 = arcade.load_texture("Images/Cloud-for-game.png")
+    arcade.draw_texture_rectangle(500, 700, texture_1.width*0.5, texture_1.height*0.5, texture_1, 0)
+    arcade.draw_texture_rectangle(800, 600, texture_1.width*0.5, texture_1.height*0.5, texture_1, 0)
+    arcade.draw_texture_rectangle(900, 800, texture_1.width*0.5, texture_1.height*0.5, texture_1, 0)
+    arcade.draw_texture_rectangle(1200, 680, texture_1.width*0.5, texture_1.height*0.5, texture_1, 0)
+    arcade.draw_texture_rectangle(100, 600, texture_1.width*0.5, texture_1.height*0.5, texture_1, 0)
+
+
+def draw_ducks(x, y):
+    # draw head
+    arcade.draw_circle_filled(x, y, 20, arcade.color.BANANA_YELLOW)
+    # draw eyes
+    arcade.draw_ellipse_filled(x + 13.5, y + 10, 8.5, 10.5, arcade.color.WHITE)
+    arcade.draw_circle_filled(x + 14, y + 10, 2.5, arcade.color.BLACK)
+    # draw beak
+    arcade.draw_triangle_filled(x + 17.5, y + 1.5, x + 17.5, y - 8.5, x + 27.5, y - 3.5, arcade.color.ORANGE_RED)
+    # draw body
+    arcade.draw_circle_filled(x, y - 30, 25, arcade.color.BANANA_YELLOW)
+    # draw legs and feet
+    arcade.draw_rectangle_filled(x, y - 60, 5, 10, arcade.color.ORANGE_RED)
+    arcade.draw_ellipse_filled(x + 5, y - 67, 17, 7, arcade.color.ORANGE_RED)
+    # draw tail
+    arcade.draw_ellipse_filled(x - 20, y - 50, 17, 7, arcade.color.BANANA_YELLOW, 30)
+
+
 def on_update(delta_time):
     pass
 
@@ -30,7 +57,7 @@ def on_draw():
     arcade.start_render()
     
     draw_background_scenery()
-
+    draw_ducks(700, 400)
 
 
 def on_key_press(key, modifiers):
