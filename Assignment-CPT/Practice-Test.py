@@ -8,9 +8,18 @@ Created:	23/12/2019
 '''
 import arcade
 
-
+# set screen width and height
 SCREEN_WIDTH = 1400
 SCREEN_HEIGHT = 800
+
+# characters speed, 20 pixels
+turtle_moving_speed = 20
+
+# starting duck speed, 10 pixels
+duck_speed = 10
+
+# control turtle movemeent variable
+start_turtle = 700
 
 def draw_background_scenery():
     # draw the land
@@ -30,6 +39,11 @@ def draw_background_scenery():
     arcade.draw_texture_rectangle(900, 800, texture_1.width*0.5, texture_1.height*0.5, texture_1, 0)
     arcade.draw_texture_rectangle(1200, 680, texture_1.width*0.5, texture_1.height*0.5, texture_1, 0)
     arcade.draw_texture_rectangle(100, 600, texture_1.width*0.5, texture_1.height*0.5, texture_1, 0)
+
+
+def draw_turtle(x, y):
+    texture_2 = arcade.load_texture("Images/turtle.png")
+    arcade.draw_texture_rectangle(x, y, texture_2.width*0.3, texture_2.height*0.3, texture_2, 0)
 
 
 def draw_ducks(x, y):
@@ -57,13 +71,13 @@ def on_draw():
     arcade.start_render()
     
     draw_background_scenery()
-    draw_ducks(700, 400)
-
+    draw_ducks(100, 270)
+    draw_turtle(start_turtle, 170)
 
 def on_key_press(key, modifiers):
-    pass
-
-
+    if key == arcade.key.LEFT or key == arcade.key.A:
+        start_turtle = start_turtle + -turtle_moving_speed
+     
 def on_key_release(key, modifiers):
     pass
 
