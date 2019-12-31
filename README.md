@@ -12,3 +12,7 @@ Everytime you bring a duck to the other side, your score will be increased by 1.
 Some limitations of my game are that you cannot use your mouse to control the turtle, (will think of more when done) 
 
 # Screen Mockups
+- Overview of The Game's General Design
+![GitHub Logo](/Images/Overview.jpg)
+- Game Mechanics and How it Will Work
+![GitHub Logo](/Images/Mechanics.jpg)
