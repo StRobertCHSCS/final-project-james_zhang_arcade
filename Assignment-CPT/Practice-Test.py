@@ -12,14 +12,13 @@ import arcade
 SCREEN_WIDTH = 1400
 SCREEN_HEIGHT = 800
 
-# characters speed, 20 pixels
-turtle_moving_speed = 20
+# start duck position
+turtle_x = SCREEN_WIDTH/2
+turtle_y = 170
 
-# starting duck speed, 10 pixels
-duck_speed = 10
-
-# control turtle movemeent variable
-start_turtle = 700
+# variables to control duck movement
+left_pressed = False
+right_pressed = False
 
 def draw_background_scenery():
     # draw the land
@@ -68,15 +67,15 @@ def on_update(delta_time):
 
 
 def on_draw():
+    global turtle_x, turtle_y
     arcade.start_render()
     
     draw_background_scenery()
     draw_ducks(100, 270)
-    draw_turtle(start_turtle, 170)
+    draw_turtle(turtle_x, turtle_y)
 
 def on_key_press(key, modifiers):
-    if key == arcade.key.LEFT or key == arcade.key.A:
-        start_turtle = start_turtle + -turtle_moving_speed
+    pass
      
 def on_key_release(key, modifiers):
     pass
