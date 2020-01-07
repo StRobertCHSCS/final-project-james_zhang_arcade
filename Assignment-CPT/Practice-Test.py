@@ -12,13 +12,19 @@ import arcade
 SCREEN_WIDTH = 1400
 SCREEN_HEIGHT = 800
 
-# start duck position
+# start turtle position
 turtle_x = SCREEN_WIDTH/2
 turtle_y = 170
 
 # variables to control duck movement
 left_pressed = False
 right_pressed = False
+
+# start amount of ducks
+duck_count = 10
+
+# start duck x position
+duck_x = 500
 
 def draw_background_scenery():
     # draw the land
@@ -39,11 +45,9 @@ def draw_background_scenery():
     arcade.draw_texture_rectangle(1200, 680, texture_1.width*0.5, texture_1.height*0.5, texture_1, 0)
     arcade.draw_texture_rectangle(100, 600, texture_1.width*0.5, texture_1.height*0.5, texture_1, 0)
 
-
 def draw_turtle(x, y):
     texture_2 = arcade.load_texture("Images/turtle.png")
     arcade.draw_texture_rectangle(x, y, texture_2.width*0.3, texture_2.height*0.3, texture_2, 0)
-
 
 def draw_ducks(x, y):
     # draw head
@@ -63,27 +67,44 @@ def draw_ducks(x, y):
 
 
 def on_update(delta_time):
-    pass
+    global turtle_x, turtle_y, left_pressed, right_pressed
+    if left_pressed:
+        turtle_x -= 15
+    if right_pressed:
+        turtle_x += 15
 
+    if turtle_x == 490:
+        left_pressed = False
+    if turtle_x == 910:
+        right_pressed = False
 
 def on_draw():
-    global turtle_x, turtle_y
+    global turtle_x, turtle_y, duck_x, duck_count
     arcade.start_render()
     
     draw_background_scenery()
-    draw_ducks(100, 270)
+    for duck_x in range(0, 490, 50):
+        draw_ducks(duck_x, 270)
+        
+    # draw_ducks(duck_x, 270)
     draw_turtle(turtle_x, turtle_y)
 
 def on_key_press(key, modifiers):
-    pass
+    global left_pressed, right_pressed
+    if key == arcade.key.D:
+        right_pressed = True
+    if key == arcade.key.A:
+        left_pressed = True
      
 def on_key_release(key, modifiers):
-    pass
-
+    global left_pressed, right_pressed
+    if key == arcade.key.D:
+        right_pressed = False
+    if key == arcade.key.A:
+        left_pressed = False
 
 def on_mouse_press(x, y, button, modifiers):
     pass
-
 
 def setup():
     arcade.open_window(SCREEN_WIDTH, SCREEN_HEIGHT, "My Arcade Game-Turtles Bouncing Ducks")
