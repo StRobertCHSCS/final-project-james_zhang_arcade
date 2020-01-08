@@ -1,4 +1,4 @@
-# My Ducky Bouncing Game 
+# My Ducky Bouncing Game !
 ## Objective of the game
 The objective of my game is to create an interacting simulation of turtles bouncing ducks. In order to complete the game you must completer all x levels of the game, where each level will make the game more difficult. The player should have fun while playing the game.
 
