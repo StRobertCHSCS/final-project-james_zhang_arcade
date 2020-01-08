@@ -24,8 +24,15 @@ right_pressed = False
 duck_speed = 10
 
 # start duck x position
-duck_x = 50
-duck_x_1 = 50
+duck_x = []
+duck_y = []
+
+for _ in range(10):
+    x = 0
+    y = 270
+
+    duck_x.append(x)
+    duck_y.append(y)
 
 def draw_background_scenery():
     # draw the land
@@ -68,7 +75,7 @@ def draw_ducks(x, y):
 
 
 def on_update(delta_time):
-    global turtle_x, turtle_y, left_pressed, right_pressed
+    global turtle_x, turtle_y, left_pressed, right_pressed, duck_x, duck_y
     if left_pressed:
         turtle_x -= 15
     if right_pressed:
@@ -78,17 +85,17 @@ def on_update(delta_time):
         left_pressed = False
     if turtle_x == 910:
         right_pressed = False
+    
+    for index in range(len(duck_x)):
+        duck_x[index] += 5
 
 def on_draw():
-    global turtle_x, turtle_y, duck_x, duck_speed, duck_x_1
+    global turtle_x, turtle_y, duck_x, duck_speed, duck_y, x, y
     arcade.start_render()
     
     draw_background_scenery()
-    for duck_x_1 in range(-100, 100, 10):
-        draw_ducks(duck_x, 270)
-        duck_x += duck_speed
-
-    # draw_ducks(duck_x, 270)
+    for x, y in zip(duck_x, duck_y):
+        draw_ducks(duck_x, duck_y)
     draw_turtle(turtle_x, turtle_y)
 
 def on_key_press(key, modifiers):
