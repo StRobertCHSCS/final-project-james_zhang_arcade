@@ -25,8 +25,7 @@ duck_speed = 10
 
 # start duck x position
 duck_x = 50
-
-i = 50
+duck_x_1 = 50
 
 def draw_background_scenery():
     # draw the land
@@ -81,11 +80,11 @@ def on_update(delta_time):
         right_pressed = False
 
 def on_draw():
-    global turtle_x, turtle_y, duck_x, duck_speed, i
+    global turtle_x, turtle_y, duck_x, duck_speed, duck_x_1
     arcade.start_render()
     
     draw_background_scenery()
-    for i in range(-100, 100, 150):
+    for duck_x_1 in range(-100, 100, 10):
         draw_ducks(duck_x, 270)
         duck_x += duck_speed
 
