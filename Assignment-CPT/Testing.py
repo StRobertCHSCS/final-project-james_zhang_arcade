@@ -28,10 +28,9 @@ duck_x = []
 duck_y = []
 
 for _ in range(10):
-    x1 = 0
-    y1 = 230
-    duck_x.append(x1)
-    duck_y.append(y1)
+    duck_x = [0, -200, -400, -600, -800]
+    y = 230
+    duck_y.append(y)
 
 def draw_background_scenery():
     # draw the land
@@ -70,9 +69,12 @@ def on_update(delta_time):
     
     for index in range(len(duck_x)):
         duck_x[index] += duck_speed
-    while duck_x[index] == 400:
-        duck_y[index] += duck_speed
-        
+        if duck_x[index] >= 400 and duck_x[index] <= 500:
+            duck_y[index] += duck_speed*3
+            duck_x[index] += duck_speed
+        if duck_x[index] >= 500 and duck_x[index] <= 700:
+            duck_y[index] -= duck_speed*3
+            duck_x[index] += duck_speed
 
 def on_draw():
     global turtle_x, turtle_y, duck_x, duck_speed, duck_y, x, y
@@ -81,10 +83,6 @@ def on_draw():
     draw_background_scenery()
     for x, y in zip(duck_x, duck_y):
         arcade.draw_circle_filled(x, y, 30, arcade.color.YELLOW)
-        arcade.draw_circle_filled(x - 200, y, 30, arcade.color.YELLOW)
-        arcade.draw_circle_filled(x - 400, y, 30, arcade.color.YELLOW)
-        arcade.draw_circle_filled(x - 600, y, 30, arcade.color.YELLOW)
-        arcade.draw_circle_filled(x - 800, y, 30, arcade.color.YELLOW)
     draw_turtle(turtle_x, turtle_y)
 
 def on_key_press(key, modifiers):
