@@ -70,9 +70,9 @@ def on_update(delta_time):
     
     for index in range(len(duck_x)):
         duck_x[index] += duck_speed
-
-        if duck_x[index] == 400:
-            duck_y[index] += duck_speed*10
+    while duck_x[index] == 400:
+        duck_y[index] += duck_speed
+        
 
 def on_draw():
     global turtle_x, turtle_y, duck_x, duck_speed, duck_y, x, y
