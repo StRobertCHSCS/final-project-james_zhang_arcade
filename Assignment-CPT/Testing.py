@@ -28,7 +28,7 @@ ball_x = []
 ball_y = []
 
 # bool value for collision check
-is_collide = False
+
 
 for _ in range(10):
     ball_x = [0, -200, -400, -600, -800]
@@ -59,7 +59,7 @@ def draw_wood(x, y):
     arcade.draw_texture_rectangle(x, y, texture_2.width*0.15, texture_2.height*0.15, texture_2, 0)
 
 def on_update(delta_time):
-    global wood_x, wood_y, left_pressed, right_pressed, ball_x, ball_y, is_collide
+    global wood_x, wood_y, left_pressed, right_pressed, ball_x, ball_y, ball_speed
     if left_pressed:
         wood_x -= 15
 
@@ -78,9 +78,13 @@ def on_update(delta_time):
             ball_y[index] += ball_speed*3
             ball_x[index] += ball_speed
 
-        if ball_x[index] >= 470 and ball_x[index] <= 700 and is_collide == False:
+        if ball_x[index] >= 470 and ball_x[index] <= 571:
             ball_y[index] -= ball_speed*3
             ball_x[index] += ball_speed
+
+        if ball_x[index] == 570 and 400 < wood_x < 700: 
+            ball_x[index] += ball_speed
+            ball_y[index] += ball_speed*3
 
 def on_draw():
     global wood_x, wood_y, ball_x, ball_y, x, y
