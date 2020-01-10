@@ -12,30 +12,33 @@ import arcade
 SCREEN_WIDTH = 1400
 SCREEN_HEIGHT = 800
 
-# start turtle position
-turtle_x = SCREEN_WIDTH/2
-turtle_y = 170
+# start wood position
+wood_x = SCREEN_WIDTH/2
+wood_y = 170
 
-# variables to control duck movement
+# variables to control ball movement
 left_pressed = False
 right_pressed = False
 
-# start duck speed
-duck_speed = 5
+# start ball speed
+ball_speed = 5
 
 # empty lists
-duck_x = []
-duck_y = []
+ball_x = []
+ball_y = []
+
+# bool value for collision check
+is_collide = False
 
 for _ in range(10):
-    duck_x = [0, -200, -400, -600, -800]
+    ball_x = [0, -200, -400, -600, -800]
     y = 230
-    duck_y.append(y)
+    ball_y.append(y)
 
 def draw_background_scenery():
     # draw the land
     arcade.draw_rectangle_filled(200, 100, 400, 200, arcade.color.GREEN)
-    arcade.draw_rectangle_filled(1200, 100, 400, 200, arcade.color.GREEN)
+    arcade.draw_rectangle_filled(1200, 100, 400, 170, arcade.color.GREEN)
 
     # draw water
     arcade.draw_rectangle_filled(700, 70, 600, 200, arcade.color.BLUE)
@@ -51,44 +54,48 @@ def draw_background_scenery():
     arcade.draw_texture_rectangle(1200, 680, texture_1.width*0.5, texture_1.height*0.5, texture_1, 0)
     arcade.draw_texture_rectangle(100, 600, texture_1.width*0.5, texture_1.height*0.5, texture_1, 0)
 
-def draw_turtle(x, y):
-    texture_2 = arcade.load_texture("Images/turtle.png")
-    arcade.draw_texture_rectangle(x, y, texture_2.width*0.3, texture_2.height*0.3, texture_2, 0)
+def draw_wood(x, y):
+    texture_2 = arcade.load_texture("Images/wood.png")
+    arcade.draw_texture_rectangle(x, y, texture_2.width*0.15, texture_2.height*0.15, texture_2, 0)
 
 def on_update(delta_time):
-    global turtle_x, turtle_y, left_pressed, right_pressed, duck_x, duck_y, duck_speed
+    global wood_x, wood_y, left_pressed, right_pressed, ball_x, ball_y, is_collide
     if left_pressed:
-        turtle_x -= 15
-    if right_pressed:
-        turtle_x += 15
+        wood_x -= 15
 
-    if turtle_x == 490:
+    if right_pressed:
+        wood_x += 15
+
+    if wood_x == 490:
         left_pressed = False
-    if turtle_x == 910:
+
+    if wood_x == 910:
         right_pressed = False
     
-    for index in range(len(duck_x)):
-        duck_x[index] += duck_speed
-        if duck_x[index] >= 400 and duck_x[index] <= 500:
-            duck_y[index] += duck_speed*3
-            duck_x[index] += duck_speed
-        if duck_x[index] >= 500 and duck_x[index] <= 700:
-            duck_y[index] -= duck_speed*3
-            duck_x[index] += duck_speed
+    for index in range(len(ball_x)):
+        ball_x[index] += ball_speed
+        if ball_x[index] >= 400 and ball_x[index] <= 470:
+            ball_y[index] += ball_speed*3
+            ball_x[index] += ball_speed
+
+        if ball_x[index] >= 470 and ball_x[index] <= 700 and is_collide == False:
+            ball_y[index] -= ball_speed*3
+            ball_x[index] += ball_speed
 
 def on_draw():
-    global turtle_x, turtle_y, duck_x, duck_speed, duck_y, x, y
+    global wood_x, wood_y, ball_x, ball_y, x, y
     arcade.start_render()
     
     draw_background_scenery()
-    for x, y in zip(duck_x, duck_y):
+    for x, y in zip(ball_x, ball_y):
         arcade.draw_circle_filled(x, y, 30, arcade.color.YELLOW)
-    draw_turtle(turtle_x, turtle_y)
+    draw_wood(wood_x, wood_y)
 
 def on_key_press(key, modifiers):
     global left_pressed, right_pressed
     if key == arcade.key.D:
         right_pressed = True
+
     if key == arcade.key.A:
         left_pressed = True
      
@@ -96,6 +103,7 @@ def on_key_release(key, modifiers):
     global left_pressed, right_pressed
     if key == arcade.key.D:
         right_pressed = False
+        
     if key == arcade.key.A:
         left_pressed = False
 
@@ -103,7 +111,7 @@ def on_mouse_press(x, y, button, modifiers):
     pass
 
 def setup():
-    arcade.open_window(SCREEN_WIDTH, SCREEN_HEIGHT, "My Arcade Game-Turtles Bouncing Ducks")
+    arcade.open_window(SCREEN_WIDTH, SCREEN_HEIGHT, "Ball Bouncing")
     arcade.set_background_color(arcade.color.LIGHT_BLUE)
     arcade.schedule(on_update, 1/60)
 
