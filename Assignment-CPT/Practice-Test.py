@@ -30,9 +30,11 @@ ball_y = []
 # bool value for collision check
 collision = False
 
+# game start screen
+
 for _ in range(5):
     ball_x = [0, -200, -400, -600, -800]
-    ball_y = [230]*5
+    ball_y = [230, 230, 230, 230, 230]
     
 def draw_background_scenery():
     # draw the land
@@ -70,23 +72,27 @@ def on_update(delta_time):
 
     if wood_x == 910:
         right_pressed = False
-    
+
+
     for index in range(len(ball_x)):
         ball_x[index] += ball_speed
+        """
         if collision:
             ball_x[index] += ball_speed
             ball_y[index] += ball_speed*3
-            
+            """
         if ball_x[index] >= 400 and ball_x[index] <= 470:
             ball_y[index] += ball_speed*3
             ball_x[index] += ball_speed
 
-        if ball_x[index] >= 470 and ball_x[index] <= 571 and collision == False:
+        if ball_x[index] >= 470 and ball_x[index] <= 571: #and collision == False
             ball_y[index] -= ball_speed*3
             ball_x[index] += ball_speed
 
         if ball_y[index] == 200 and wood_y == 170 and ball_x[index] == 570 and 400 < wood_x < 800:
-            collision = True 
+            #collision = True 
+            ball_x[index] += ball_speed
+            ball_y[index] += ball_speed*3
            
 
 def on_draw():
