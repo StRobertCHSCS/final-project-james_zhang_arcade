@@ -28,13 +28,12 @@ ball_x = []
 ball_y = []
 
 # bool value for collision check
+collision = False
 
-
-for _ in range(10):
+for _ in range(5):
     ball_x = [0, -200, -400, -600, -800]
-    y = 230
-    ball_y.append(y)
-
+    ball_y = [230]*5
+    
 def draw_background_scenery():
     # draw the land
     arcade.draw_rectangle_filled(200, 100, 400, 200, arcade.color.GREEN)
@@ -59,7 +58,7 @@ def draw_wood(x, y):
     arcade.draw_texture_rectangle(x, y, texture_2.width*0.15, texture_2.height*0.15, texture_2, 0)
 
 def on_update(delta_time):
-    global wood_x, wood_y, left_pressed, right_pressed, ball_x, ball_y, ball_speed
+    global wood_x, wood_y, left_pressed, right_pressed, ball_x, ball_y, ball_speed, collision
     if left_pressed:
         wood_x -= 15
 
@@ -74,17 +73,21 @@ def on_update(delta_time):
     
     for index in range(len(ball_x)):
         ball_x[index] += ball_speed
+        if collision:
+            ball_x[index] += ball_speed
+            ball_y[index] += ball_speed*3
+
         if ball_x[index] >= 400 and ball_x[index] <= 470:
             ball_y[index] += ball_speed*3
             ball_x[index] += ball_speed
 
-        if ball_x[index] >= 470 and ball_x[index] <= 571:
+        if ball_x[index] >= 470 and ball_x[index] <= 571 and collision == False:
             ball_y[index] -= ball_speed*3
             ball_x[index] += ball_speed
 
-        if ball_x[index] == 570 and 400 < wood_x < 700: 
-            ball_x[index] += ball_speed
-            ball_y[index] += ball_speed*3
+        if ball_y[index] == 200 and wood_y == 170 and ball_x[index] == 570 and 400 < wood_x < 800:
+            collision = True 
+           
 
 def on_draw():
     global wood_x, wood_y, ball_x, ball_y, x, y
@@ -94,7 +97,7 @@ def on_draw():
     for x, y in zip(ball_x, ball_y):
         arcade.draw_circle_filled(x, y, 30, arcade.color.YELLOW)
     draw_wood(wood_x, wood_y)
-
+            
 def on_key_press(key, modifiers):
     global left_pressed, right_pressed
     if key == arcade.key.D:
@@ -107,7 +110,7 @@ def on_key_release(key, modifiers):
     global left_pressed, right_pressed
     if key == arcade.key.D:
         right_pressed = False
-        
+
     if key == arcade.key.A:
         left_pressed = False
 
