@@ -13,6 +13,5 @@ Some limitations of my game are that you cannot use your mouse to control the tu
 
 # Screen Mockups
 - Overview of The Game's General Design
-![GitHub Logo](/Images/Overview.jpg)
-- Game Mechanics and How it Will Work
-![GitHub Logo](/Images/Mechanics.jpg)
+![GitHub Logo](/Images/Game.PNG)
+
