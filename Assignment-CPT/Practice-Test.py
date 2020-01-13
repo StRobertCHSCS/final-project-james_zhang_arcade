@@ -96,12 +96,12 @@ def on_update(delta_time):
                 ball_y[index] -= ball_speed*3
                 ball_x[index] += ball_speed
 
-            if ball_y[index] == 200 and wood_y == 170 and ball_x[index] == 570 and 400 < wood_x < 800:
-                collision = True 
+            if ball_y[index] == 200 and wood_y == 170 and ball_x[index] == 570 and 400 < wood_x < 700:
+                collision = True
+                
                 ball_x[index] += ball_speed
                 ball_y[index] += ball_speed*3
-            if ball_y[index] < 205:
-                screen = "actually_dead"
+            
            
 
 def on_draw():
@@ -130,7 +130,7 @@ def on_key_press(key, modifiers):
         left_pressed = True
      
     if key == arcade.key.S:
-         screen = "alive"
+        screen = "alive"
 def on_key_release(key, modifiers):
     global left_pressed, right_pressed
     if key == arcade.key.D:
@@ -140,7 +140,7 @@ def on_key_release(key, modifiers):
         left_pressed = False
 
     if key == arcade.key.S:
-         screen = "alive"
+        screen = "alive"
 def on_mouse_press(x, y, button, modifiers):
     pass
 
