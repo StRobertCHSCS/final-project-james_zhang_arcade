@@ -21,7 +21,7 @@ left_pressed = False
 right_pressed = False
 
 # start ball speed
-ball_speed = 5
+ball_speed = 0
 
 # empty lists
 ball_x = []
@@ -31,6 +31,7 @@ ball_y = []
 collision = False
 
 # game start screen
+screen = "dead"
 
 for _ in range(5):
     ball_x = [0, -200, -400, -600, -800]
@@ -59,8 +60,13 @@ def draw_wood(x, y):
     texture_2 = arcade.load_texture("Images/wood.png")
     arcade.draw_texture_rectangle(x, y, texture_2.width*0.15, texture_2.height*0.15, texture_2, 0)
 
+def draw_background():
+    texture_3 = arcade.load_texture("Images/game_start.png")
+    arcade.draw_texture_rectangle(700, 400, texture_3.width*(1400/1920), texture_3.height*(800/1080), texture_3, 0)
 def on_update(delta_time):
-    global wood_x, wood_y, left_pressed, right_pressed, ball_x, ball_y, ball_speed, collision
+    global wood_x, wood_y, left_pressed, right_pressed, ball_x, ball_y, ball_speed, collision, screen
+    if screen == "alive":
+        ball_speed = 5
     if left_pressed:
         wood_x -= 15
 
@@ -75,43 +81,56 @@ def on_update(delta_time):
 
 
     for index in range(len(ball_x)):
-        ball_x[index] += ball_speed
-        """
-        if collision:
+        for index in range(len(ball_y)):
             ball_x[index] += ball_speed
-            ball_y[index] += ball_speed*3
-            """
-        if ball_x[index] >= 400 and ball_x[index] <= 470:
-            ball_y[index] += ball_speed*3
-            ball_x[index] += ball_speed
+            
+            if collision:
+                ball_x[index] += ball_speed
+                ball_y[index] += ball_speed*3
+        
+            if ball_x[index] >= 400 and ball_x[index] <= 470:
+                ball_y[index] += ball_speed*3
+                ball_x[index] += ball_speed
 
-        if ball_x[index] >= 470 and ball_x[index] <= 571: #and collision == False
-            ball_y[index] -= ball_speed*3
-            ball_x[index] += ball_speed
+            if ball_x[index] >= 470 and ball_x[index] <= 571 and collision == False:
+                ball_y[index] -= ball_speed*3
+                ball_x[index] += ball_speed
 
-        if ball_y[index] == 200 and wood_y == 170 and ball_x[index] == 570 and 400 < wood_x < 800:
-            #collision = True 
-            ball_x[index] += ball_speed
-            ball_y[index] += ball_speed*3
+            if ball_y[index] == 200 and wood_y == 170 and ball_x[index] == 570 and 400 < wood_x < 800:
+                collision = True 
+                ball_x[index] += ball_speed
+                ball_y[index] += ball_speed*3
+            if ball_y[index] < 205:
+                screen = "actually_dead"
            
 
 def on_draw():
-    global wood_x, wood_y, ball_x, ball_y, x, y, ball_speed, collision
+    global wood_x, wood_y, ball_x, ball_y, x, y, ball_speed, collision, screen
     arcade.start_render()
-    
-    draw_background_scenery()
-    for x, y in zip(ball_x, ball_y):
-        arcade.draw_circle_filled(x, y, 30, arcade.color.YELLOW)
-    draw_wood(wood_x, wood_y)
+    if screen == "dead":
+        draw_background()
+        arcade.draw_text("Bouncing Balls Game!!", 230, 700, arcade.color.WHITE, 80)
+        arcade.draw_text("Press S to start", 600, 400, arcade.color.WHITE, 30)
+    if screen == "actually_dead":
+        arcade.set_background_color(arcade.color.BLACK)
+        arcade.draw_text("Press S to start", 600, 400, arcade.color.WHITE, 30)
+    if screen == "alive":
+        draw_background_scenery()
+        draw_wood(wood_x, wood_y)
+        arcade.set_background_color(arcade.color.LIGHT_BLUE)
+        for x, y in zip(ball_x, ball_y):
+            arcade.draw_circle_filled(x, y, 30, arcade.color.YELLOW)
             
 def on_key_press(key, modifiers):
-    global left_pressed, right_pressed
+    global left_pressed, right_pressed, screen
     if key == arcade.key.D:
         right_pressed = True
 
     if key == arcade.key.A:
         left_pressed = True
      
+    if key == arcade.key.S:
+         screen = "alive"
 def on_key_release(key, modifiers):
     global left_pressed, right_pressed
     if key == arcade.key.D:
@@ -120,12 +139,13 @@ def on_key_release(key, modifiers):
     if key == arcade.key.A:
         left_pressed = False
 
+    if key == arcade.key.S:
+         screen = "alive"
 def on_mouse_press(x, y, button, modifiers):
     pass
 
 def setup():
     arcade.open_window(SCREEN_WIDTH, SCREEN_HEIGHT, "Ball Bouncing")
-    arcade.set_background_color(arcade.color.LIGHT_BLUE)
     arcade.schedule(on_update, 1/60)
 
     # Override arcade window methods
