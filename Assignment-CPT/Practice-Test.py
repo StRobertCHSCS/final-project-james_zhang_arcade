@@ -85,6 +85,7 @@ def on_update(delta_time):
         right_pressed = False
 
     for index in range(len(ball_x)):
+        collision = False
         ball_x[index] += ball_speed
         
         if ball_x[index] >= 400 and ball_x[index] <= 470:
@@ -100,9 +101,13 @@ def on_update(delta_time):
             ball_x[index] += ball_speed
             ball_y[index] += ball_speed*3
             
-        if collision:
+        if ball_x[index] >= 571 and ball_x[index] <= 670 and collision == True:
+            ball_x[index] += ball_speed*10
+            ball_y[index] += ball_speed*30
+
+        if ball_x[index] >= 670 and ball_x[index] <= 771 and collision == False:
+            ball_y[index] -= ball_speed*3
             ball_x[index] += ball_speed
-            ball_y[index] += ball_speed*3
            
 def on_draw():
     global wood_x, wood_y, ball_x, ball_y, x, y, ball_speed, collision, screen
