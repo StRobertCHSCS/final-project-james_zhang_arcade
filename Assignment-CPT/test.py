@@ -84,25 +84,25 @@ def on_update(delta_time):
     if wood_x == 910:
         right_pressed = False
 
-    for index in range(len(ball_x)):
-        ball_x[index] += ball_speed
+    for x2, y2 in zip(ball_x, ball_y):
+        x2 += ball_speed
         
-        if ball_x[index] >= 400 and ball_x[index] <= 470:
-            ball_y[index] += ball_speed*3
-            ball_x[index] += ball_speed
+        if x2 >= 400 and x2 <= 470:
+            y2 += ball_speed*3
+            x2 += ball_speed
 
-        if ball_x[index] >= 470 and ball_x[index] <= 571 and collision == False:
-            ball_y[index] -= ball_speed*3
-            ball_x[index] += ball_speed
+        if x2 >= 470 and x2 <= 571 and collision == False:
+            y2 -= ball_speed*3
+            x2 += ball_speed
 
-        if ball_y[index] == 200 and wood_y == 170 and ball_x[index] == 570 and 400 < wood_x < 700:
+        if y2 == 200 and wood_y == 170 and x2 == 570 and 400 < wood_x < 700:
             collision = True
-            ball_x[index] += ball_speed
-            ball_y[index] += ball_speed*3
+            x2 += ball_speed
+            y2 += ball_speed*3
             
         if collision:
-            ball_x[index] += ball_speed
-            ball_y[index] += ball_speed*3
+            x2 += ball_speed
+            y2 += ball_speed*3
            
 def on_draw():
     global wood_x, wood_y, ball_x, ball_y, x, y, ball_speed, collision, screen
