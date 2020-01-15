@@ -29,6 +29,9 @@ ball_y = []
 
 # bool value for collision check
 collision = False
+collision_2 = False
+collision_confirm = False
+collision_confirm_2 = False
 
 # game start screen
 screen = "dead"
@@ -68,7 +71,7 @@ def draw_background():
 
 
 def on_update(delta_time):
-    global wood_x, wood_y, left_pressed, right_pressed, ball_x, ball_y, ball_speed, collision, screen
+    global wood_x, wood_y, left_pressed, right_pressed, ball_x, ball_y, ball_speed, collision, screen, collision_confirm, collision_confirm_2, collision_2
 
     if screen == "alive":
         ball_speed = 5
@@ -86,6 +89,7 @@ def on_update(delta_time):
 
     for index in range(len(ball_x)):
         collision = False
+        collision_2 = False
         ball_x[index] += ball_speed
         
         if ball_x[index] >= 400 and ball_x[index] <= 470:
@@ -102,13 +106,39 @@ def on_update(delta_time):
             ball_y[index] += ball_speed*3
             
         if ball_x[index] >= 571 and ball_x[index] <= 670 and collision == True:
-            ball_x[index] += ball_speed*10
-            ball_y[index] += ball_speed*30
-
-        if ball_x[index] >= 670 and ball_x[index] <= 771 and collision == False:
-            ball_y[index] -= ball_speed*3
             ball_x[index] += ball_speed
-           
+            ball_y[index] += ball_speed*3
+            collision_confirm = True
+
+        if ball_x[index] >= 571 and ball_x[index] <= 670 and collision_confirm == True:
+            ball_x[index] += ball_speed
+            ball_y[index] += ball_speed*3
+        
+        if ball_x[index] >= 670 and ball_x[index] <= 770 and collision == False:
+            ball_y[index] -= ball_speed*4
+            ball_x[index] += ball_speed
+        
+        if ball_y[index] == 200 and wood_y == 170 and ball_x[index] == 760 and 650 < wood_x < 1000:
+            collision_2 = True
+            ball_x[index] += ball_speed
+            ball_y[index] += ball_speed*3
+            
+        if ball_x[index] >= 760 and ball_x[index] <= 860 and collision_2 == True:
+            ball_x[index] += ball_speed
+            ball_y[index] += ball_speed*3
+            collision_confirm_2 = True
+
+        if ball_x[index] >= 760 and ball_x[index] <= 860 and collision_confirm_2 == True:
+            ball_x[index] += ball_speed
+            ball_y[index] += ball_speed*3
+            collision_confirm_2 = True
+
+        if ball_x[index] >= 860 and ball_x[index] <= 1000 and collision_confirm_2 == True:
+            ball_x[index] += ball_speed*4
+            ball_y[index] -= ball_speed*4
+
+        
+
 def on_draw():
     global wood_x, wood_y, ball_x, ball_y, x, y, ball_speed, collision, screen
 
