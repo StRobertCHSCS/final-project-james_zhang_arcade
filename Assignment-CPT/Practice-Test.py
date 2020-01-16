@@ -36,7 +36,12 @@ collision_confirm_2 = False
 # game start screen
 screen = "dead"
 
-if screen == "dead" or screen == "actually_dead":
+if screen == "dead":
+    for _ in range(5):
+        ball_x = [0, -200, -400, -600, -800]
+        ball_y = [230, 230, 230, 230, 230]
+
+if screen == "actually_dead":
     for _ in range(5):
         ball_x = [0, -200, -400, -600, -800]
         ball_y = [230, 230, 230, 230, 230]
@@ -145,7 +150,7 @@ def on_update(delta_time):
                 screen = "actually_dead"
             
             if ball_y[index] == 200 and wood_y == 170 and ball_x[index] == 760 and 650 > wood_x:
-                screen = "actually dead"
+                screen = "actually_dead"
                     
 
 def on_draw():
@@ -162,6 +167,9 @@ def on_draw():
         arcade.set_background_color(arcade.color.BLACK)
         arcade.draw_text("Press S to start", 600, 400, arcade.color.WHITE, 30)
         arcade.draw_text("You Died", 600, 200, arcade.color.WHITE, 30)
+        for _ in range(5):
+            ball_x = [0, -200, -400, -600, -800]
+            ball_y = [230, 230, 230, 230, 230]
 
     if screen == "alive":
         draw_background_scenery()
@@ -180,9 +188,11 @@ def on_key_press(key, modifiers):
     if key == arcade.key.A:
         left_pressed = True
      
-    if key == arcade.key.S:
+    if key == arcade.key.S and screen == "dead":
         screen = "alive"
 
+    if key == arcade.key.S and screen == "actually_dead":
+        screen = "alive"
 
 def on_key_release(key, modifiers):
     global left_pressed, right_pressed, screen
@@ -192,7 +202,10 @@ def on_key_release(key, modifiers):
     if key == arcade.key.A:
         left_pressed = False
 
-    if key == arcade.key.S:
+    if key == arcade.key.S and screen == "dead":
+        screen = "alive"
+        
+    if key == arcade.key.S and screen == "actually_dead":
         screen = "alive"
 
 
