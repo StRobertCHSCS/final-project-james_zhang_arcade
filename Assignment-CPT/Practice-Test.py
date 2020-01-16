@@ -36,9 +36,10 @@ collision_confirm_2 = False
 # game start screen
 screen = "dead"
 
-for _ in range(5):
-    ball_x = [0, -200, -400, -600, -800]
-    ball_y = [230, 230, 230, 230, 230]
+if screen == "dead" or screen == "actually_dead":
+    for _ in range(5):
+        ball_x = [0, -200, -400, -600, -800]
+        ball_y = [230, 230, 230, 230, 230]
     
 def draw_background_scenery():
     # draw the land
@@ -75,69 +76,77 @@ def on_update(delta_time):
 
     if screen == "alive":
         ball_speed = 5
-    if left_pressed:
-        wood_x -= 15
+        if left_pressed:
+            wood_x -= 15
 
-    if right_pressed:
-        wood_x += 15
+        if right_pressed:
+            wood_x += 15
 
-    if wood_x == 490:
-        left_pressed = False
+        if wood_x == 490:
+            left_pressed = False
 
-    if wood_x == 910:
-        right_pressed = False
+        if wood_x == 910:
+            right_pressed = False
 
-    for index in range(len(ball_x)):
-        collision = False
-        collision_2 = False
-        ball_x[index] += ball_speed
-        
-        if ball_x[index] >= 400 and ball_x[index] <= 470:
-            ball_y[index] += ball_speed*3
+        for index in range(len(ball_x)):
+            collision = False
+            collision_2 = False
             ball_x[index] += ball_speed
-
-        if ball_x[index] >= 470 and ball_x[index] <= 571 and collision == False:
-            ball_y[index] -= ball_speed*3
-            ball_x[index] += ball_speed
-
-        if ball_y[index] == 200 and wood_y == 170 and ball_x[index] == 570 and 400 < wood_x < 700:
-            collision = True
-            ball_x[index] += ball_speed
-            ball_y[index] += ball_speed*3
             
-        if ball_x[index] >= 571 and ball_x[index] <= 670 and collision == True:
-            ball_x[index] += ball_speed
-            ball_y[index] += ball_speed*3
-            collision_confirm = True
+            if ball_x[index] >= 400 and ball_x[index] <= 470:
+                ball_y[index] += ball_speed*3
+                ball_x[index] += ball_speed
 
-        if ball_x[index] >= 571 and ball_x[index] <= 670 and collision_confirm == True:
-            ball_x[index] += ball_speed
-            ball_y[index] += ball_speed*3
-        
-        if ball_x[index] >= 670 and ball_x[index] <= 770 and collision == False:
-            ball_y[index] -= ball_speed*4
-            ball_x[index] += ball_speed
-        
-        if ball_y[index] == 200 and wood_y == 170 and ball_x[index] == 760 and 650 < wood_x < 1000:
-            collision_2 = True
-            ball_x[index] += ball_speed
-            ball_y[index] += ball_speed*3
+            if ball_x[index] >= 470 and ball_x[index] <= 571 and collision == False:
+                ball_y[index] -= ball_speed*3
+                ball_x[index] += ball_speed
+
+            if ball_y[index] == 200 and wood_y == 170 and ball_x[index] == 570 and 400 < wood_x < 700:
+                collision = True
+                ball_x[index] += ball_speed
+                ball_y[index] += ball_speed*3
+                
+            if ball_x[index] >= 571 and ball_x[index] <= 670 and collision == True:
+                ball_x[index] += ball_speed
+                ball_y[index] += ball_speed*3
+                collision_confirm = True
+
+            if ball_x[index] >= 571 and ball_x[index] <= 670 and collision_confirm == True:
+                ball_x[index] += ball_speed
+                ball_y[index] += ball_speed*3
             
-        if ball_x[index] >= 760 and ball_x[index] <= 860 and collision_2 == True:
-            ball_x[index] += ball_speed
-            ball_y[index] += ball_speed*3
-            collision_confirm_2 = True
+            if ball_x[index] >= 670 and ball_x[index] <= 771 and collision == False:
+                ball_y[index] -= ball_speed*6
+                ball_x[index] += ball_speed*2
+            
+            if ball_y[index] == 200 and wood_y == 170 and ball_x[index] == 760 and 650 < wood_x < 1000:
+                collision_2 = True
+                ball_x[index] += ball_speed
+                ball_y[index] += ball_speed*3
+                
+            if ball_x[index] >= 760 and ball_x[index] <= 860 and collision_2 == True:
+                ball_x[index] += ball_speed
+                ball_y[index] += ball_speed*3
+                collision_confirm_2 = True
 
-        if ball_x[index] >= 760 and ball_x[index] <= 860 and collision_confirm_2 == True:
-            ball_x[index] += ball_speed
-            ball_y[index] += ball_speed*3
-            collision_confirm_2 = True
+            if ball_x[index] >= 760 and ball_x[index] <= 860 and collision_confirm_2 == True:
+                ball_x[index] += ball_speed
+                ball_y[index] += ball_speed*3
+                collision_confirm_2 = True
 
-        if ball_x[index] >= 860 and ball_x[index] <= 1000 and collision_confirm_2 == True:
-            ball_x[index] += ball_speed*4
-            ball_y[index] -= ball_speed*4
-
-        
+            if ball_x[index] >= 860 and ball_x[index] <= 1000 and collision_confirm_2 == True:
+                ball_x[index] += ball_speed*4
+                ball_y[index] -= ball_speed*7
+            
+            if ball_y[index] < 250 and ball_x[index] > 950:
+                ball_y[index] = 250
+            
+            if ball_y[index] < 201:
+                screen = "actually_dead"
+            
+            if ball_y[index] == 200 and wood_y == 170 and ball_x[index] == 760 and 650 > wood_x:
+                screen = "actually dead"
+                    
 
 def on_draw():
     global wood_x, wood_y, ball_x, ball_y, x, y, ball_speed, collision, screen
@@ -152,6 +161,7 @@ def on_draw():
     if screen == "actually_dead":
         arcade.set_background_color(arcade.color.BLACK)
         arcade.draw_text("Press S to start", 600, 400, arcade.color.WHITE, 30)
+        arcade.draw_text("You Died", 600, 200, arcade.color.WHITE, 30)
 
     if screen == "alive":
         draw_background_scenery()
@@ -175,7 +185,7 @@ def on_key_press(key, modifiers):
 
 
 def on_key_release(key, modifiers):
-    global left_pressed, right_pressed
+    global left_pressed, right_pressed, screen
     if key == arcade.key.D:
         right_pressed = False
 
