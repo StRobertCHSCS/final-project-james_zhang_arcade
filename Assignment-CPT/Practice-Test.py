@@ -37,9 +37,9 @@ collision_confirm_2 = False
 screen = "dead"
 
 if screen == "dead":
-    for _ in range(5):
-        ball_x = [0, -200, -400, -600, -800]
-        ball_y = [230, 230, 230, 230, 230]
+    for _ in range(10):
+        ball_x = [0, -200, -400, -600, -800, -1000, -1200, -1400, -1600, -1800, -2000, -2200, -2400, -2600, -2800, -3000, -3100, -3200, -3300, -3400, -3500 -3600, -3700, -3800, -3900, -4000]
+        ball_y = [230]*26
 
 if screen == "actually_dead":
     for _ in range(5):
@@ -49,12 +49,12 @@ if screen == "actually_dead":
 def draw_background_scenery():
     # draw the land
     arcade.draw_rectangle_filled(200, 100, 400, 200, arcade.color.GREEN)
-    arcade.draw_rectangle_filled(1200, 100, 400, 170, arcade.color.GREEN)
+    arcade.draw_rectangle_filled(1200, 100, 400, 240, arcade.color.GREEN)
 
     # draw water
     arcade.draw_rectangle_filled(700, 70, 600, 200, arcade.color.BLUE)
 
-    # draw clouds and sun
+    # draw sun
     arcade.draw_circle_filled(200, 700, 70, arcade.color.YELLOW)
 
     # draw clouds
@@ -64,7 +64,7 @@ def draw_background_scenery():
     arcade.draw_texture_rectangle(900, 800, texture_1.width*0.5, texture_1.height*0.5, texture_1, 0)
     arcade.draw_texture_rectangle(1200, 680, texture_1.width*0.5, texture_1.height*0.5, texture_1, 0)
     arcade.draw_texture_rectangle(100, 600, texture_1.width*0.5, texture_1.height*0.5, texture_1, 0)
-
+    
 
 def draw_wood(x, y):
     texture_2 = arcade.load_texture("Images/wood.png")
@@ -167,9 +167,9 @@ def on_draw():
         arcade.set_background_color(arcade.color.BLACK)
         arcade.draw_text("Press S to start", 600, 400, arcade.color.WHITE, 30)
         arcade.draw_text("You Died", 600, 200, arcade.color.WHITE, 30)
-        for _ in range(5):
-            ball_x = [0, -200, -400, -600, -800]
-            ball_y = [230, 230, 230, 230, 230]
+        for _ in range(10):
+            ball_x = [0, -200, -400, -600, -800, -1000, -1200, -1400, -1600, -1800, -2000, -2200, -2400, -2600, -2800, -3000, -3100, -3200, -3300, -3400, -3500, -3600, -3700, -3800, -3900, -4000]
+            ball_y = [230]*26
 
     if screen == "alive":
         draw_background_scenery()
