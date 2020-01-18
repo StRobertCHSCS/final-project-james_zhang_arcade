@@ -6,6 +6,7 @@ Author:	    Zhang.J
 Created:	23/12/2019
 ------------------------------------------------------------------------------
 '''
+
 import arcade
 
 # set screen width and height
@@ -35,6 +36,9 @@ collision_confirm_2 = False
 
 # game start screen
 screen = "dead"
+
+# score counter
+score = 0
 
 if screen == "dead":
     for _ in range(10):
@@ -77,7 +81,7 @@ def draw_background():
 
 
 def on_update(delta_time):
-    global wood_x, wood_y, left_pressed, right_pressed, ball_x, ball_y, ball_speed, collision, screen, collision_confirm, collision_confirm_2, collision_2
+    global wood_x, wood_y, left_pressed, right_pressed, ball_x, ball_y, ball_speed, collision, screen, collision_confirm, collision_confirm_2, collision_2, score
 
     if screen == "alive":
         ball_speed = 5
@@ -151,10 +155,13 @@ def on_update(delta_time):
             
             if ball_y[index] == 200 and wood_y == 170 and ball_x[index] == 760 and 650 > wood_x:
                 screen = "actually_dead"
+
+            if ball_x[index] == 1400:
+                score += 1
                     
 
 def on_draw():
-    global wood_x, wood_y, ball_x, ball_y, x, y, ball_speed, collision, screen
+    global wood_x, wood_y, ball_x, ball_y, x, y, ball_speed, collision, screen, score
 
     arcade.start_render()
 
@@ -167,6 +174,7 @@ def on_draw():
         arcade.set_background_color(arcade.color.BLACK)
         arcade.draw_text("Press S to start", 600, 400, arcade.color.WHITE, 30)
         arcade.draw_text("You Died", 600, 200, arcade.color.WHITE, 30)
+        score = 0
         for _ in range(10):
             ball_x = [0, -200, -400, -600, -800, -1000, -1200, -1400, -1600, -1800, -2000, -2200, -2400, -2600, -2800, -3000, -3100, -3200, -3300, -3400, -3500, -3600, -3700, -3800, -3900, -4000]
             ball_y = [230]*26
@@ -178,6 +186,8 @@ def on_draw():
 
         for x, y in zip(ball_x, ball_y):
             arcade.draw_circle_filled(x, y, 30, arcade.color.YELLOW)
+
+        arcade.draw_text("Score:" + str(score), 1250, 760, arcade.color.BLACK)
             
 
 def on_key_press(key, modifiers):
