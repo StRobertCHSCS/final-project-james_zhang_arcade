@@ -9,9 +9,9 @@ To control the movement of the wooden plank you will be using the D and A keys, 
 Everytime you bring a ball to the other side, your score will be increased by 1.
 
 ## Functionality and Limitations
--Can only use A and D keys to control character
--Game is easy
--Game is laggy
+- Can only use A and D keys to control character
+- Game is easy
+- Game is laggy
 
 # Screen Mockups
 - Overview of The Game's General Design
