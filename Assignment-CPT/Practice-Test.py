@@ -91,7 +91,7 @@ def draw_background():
     """
     # load the texture for the homescreen
     texture_3 = arcade.load_texture("Images/game_start.png")
-    arcade.draw_texture_rectangle(700, 400, texture_3.width*(1400/1920), texture_3.height*(800/1080), texture_3, 0)
+    arcade.draw_texture_rectangle(700, 400, texture_3.width*2, texture_3.height*2, texture_3, 0)
 
 
 def on_update(delta_time):
@@ -181,7 +181,8 @@ def on_update(delta_time):
 
             if ball_x[index] == 1400:
                 score += 1
-                    
+                if score == 1:
+                    screen = "done"
 
 def on_draw():
     """[draw everything]
@@ -193,14 +194,13 @@ def on_draw():
     # draw start screen
     if screen == "dead":
         draw_background()
-        arcade.draw_text("Bouncing Balls Game!!", 230, 700, arcade.color.WHITE, 80)
-        arcade.draw_text("Press S to start", 600, 400, arcade.color.WHITE, 30)
 
     # draw screen when dead
     if screen == "actually_dead":
-        arcade.set_background_color(arcade.color.BLACK)
-        arcade.draw_text("Press S to start", 600, 400, arcade.color.WHITE, 30)
-        arcade.draw_text("You Died", 600, 200, arcade.color.WHITE, 30)
+        texture_4 = arcade.load_texture("Images/death_screen.png")
+        arcade.draw_texture_rectangle(700, 400, texture_4.width*2, texture_4.height*2, texture_4, 0)
+
+        # reset score
         score = 0
 
         # reset ball positions
@@ -220,7 +220,19 @@ def on_draw():
 
         # score counter
         arcade.draw_text("Score:" + str(score), 1250, 760, arcade.color.BLACK)
-            
+        
+    # draw screen when done game
+    if screen == "done":
+        texture_5 = arcade.load_texture("Images/complete_screen.png")
+        arcade.draw_texture_rectangle(700, 500, texture_5.width*1.6, texture_5.height*2, texture_5, 0)
+
+        # reset score
+        score = 0
+
+        # reset ball positions
+        for _ in range(10):
+            ball_x = [0, -200, -400, -600, -800, -1000, -1200, -1400, -1600, -1800, -2000, -2200, -2400, -2600, -2800, -3000, -3100, -3200, -3300, -3400, -3500, -3600, -3700, -3800, -3900, -4000]
+            ball_y = [230]*26
 
 def on_key_press(key, modifiers):
     """[controls the key press when pressed]
