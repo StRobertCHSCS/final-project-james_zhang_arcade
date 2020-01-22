@@ -40,17 +40,21 @@ screen = "dead"
 # score counter
 score = 0
 
+# input values for the ball locations
 if screen == "dead":
     for _ in range(10):
         ball_x = [0, -200, -400, -600, -800, -1000, -1200, -1400, -1600, -1800, -2000, -2200, -2400, -2600, -2800, -3000, -3100, -3200, -3300, -3400, -3500 -3600, -3700, -3800, -3900, -4000]
         ball_y = [230]*26
 
+# reset location of balls if dead
 if screen == "actually_dead":
     for _ in range(5):
         ball_x = [0, -200, -400, -600, -800]
         ball_y = [230, 230, 230, 230, 230]
     
 def draw_background_scenery():
+    """[draw the background for the game]
+    """
     # draw the land
     arcade.draw_rectangle_filled(200, 100, 400, 200, arcade.color.GREEN)
     arcade.draw_rectangle_filled(1200, 100, 400, 240, arcade.color.GREEN)
@@ -71,19 +75,37 @@ def draw_background_scenery():
     
 
 def draw_wood(x, y):
+    """[draw the player controlled character(wooden plank)]
+    
+    Arguments:
+        x {[int]} -- [x value for wooden plank]
+        y {[int]} -- [y value for wooden plank]
+    """
+    # draw the wooden plank
     texture_2 = arcade.load_texture("Images/wood.png")
     arcade.draw_texture_rectangle(x, y, texture_2.width*0.15, texture_2.height*0.15, texture_2, 0)
 
 
 def draw_background():
+    """[draw the start screen]
+    """
+    # load the texture for the homescreen
     texture_3 = arcade.load_texture("Images/game_start.png")
     arcade.draw_texture_rectangle(700, 400, texture_3.width*(1400/1920), texture_3.height*(800/1080), texture_3, 0)
 
 
 def on_update(delta_time):
+    """[logic for game, and updates during game]
+    
+    Arguments:
+        delta_time {[int]} -- [timer that moves the animation per frame]
+    """
     global wood_x, wood_y, left_pressed, right_pressed, ball_x, ball_y, ball_speed, collision, screen, collision_confirm, collision_confirm_2, collision_2, score
 
+    # on update for when you play game
     if screen == "alive":
+
+        # moving character left and right
         ball_speed = 5
         if left_pressed:
             wood_x -= 15
@@ -97,6 +119,7 @@ def on_update(delta_time):
         if wood_x == 910:
             right_pressed = False
 
+        # for loop that moves the ball and handles collision test
         for index in range(len(ball_x)):
             collision = False
             collision_2 = False
@@ -161,37 +184,54 @@ def on_update(delta_time):
                     
 
 def on_draw():
+    """[draw everything]
+    """
     global wood_x, wood_y, ball_x, ball_y, x, y, ball_speed, collision, screen, score
 
     arcade.start_render()
 
+    # draw start screen
     if screen == "dead":
         draw_background()
         arcade.draw_text("Bouncing Balls Game!!", 230, 700, arcade.color.WHITE, 80)
         arcade.draw_text("Press S to start", 600, 400, arcade.color.WHITE, 30)
 
+    # draw screen when dead
     if screen == "actually_dead":
         arcade.set_background_color(arcade.color.BLACK)
         arcade.draw_text("Press S to start", 600, 400, arcade.color.WHITE, 30)
         arcade.draw_text("You Died", 600, 200, arcade.color.WHITE, 30)
         score = 0
+
+        # reset ball positions
         for _ in range(10):
             ball_x = [0, -200, -400, -600, -800, -1000, -1200, -1400, -1600, -1800, -2000, -2200, -2400, -2600, -2800, -3000, -3100, -3200, -3300, -3400, -3500, -3600, -3700, -3800, -3900, -4000]
             ball_y = [230]*26
 
+    # draw items when playing game
     if screen == "alive":
         draw_background_scenery()
         draw_wood(wood_x, wood_y)
         arcade.set_background_color(arcade.color.LIGHT_BLUE)
 
+        # unload the x and y positions for balls
         for x, y in zip(ball_x, ball_y):
             arcade.draw_circle_filled(x, y, 30, arcade.color.YELLOW)
 
+        # score counter
         arcade.draw_text("Score:" + str(score), 1250, 760, arcade.color.BLACK)
             
 
 def on_key_press(key, modifiers):
+    """[controls the key press when pressed]
+    
+    Arguments:
+        key {[type]} -- [description]
+        modifiers {[type]} -- [description]
+    """
     global left_pressed, right_pressed, screen
+
+    # confirm that a key was pressed to trigger movement
     if key == arcade.key.D:
         right_pressed = True
 
@@ -205,7 +245,15 @@ def on_key_press(key, modifiers):
         screen = "alive"
 
 def on_key_release(key, modifiers):
+    """[controls the key press when released]
+    
+    Arguments:
+        key {[type]} -- [description]
+        modifiers {[type]} -- [description]
+    """
     global left_pressed, right_pressed, screen
+    
+    # stop movement when key is released
     if key == arcade.key.D:
         right_pressed = False
 
@@ -220,6 +268,8 @@ def on_key_release(key, modifiers):
 
 
 def setup():
+    """[setup the game's methods and fps]
+    """
     arcade.open_window(SCREEN_WIDTH, SCREEN_HEIGHT, "Ball Bouncing")
     arcade.schedule(on_update, 1/60)
 
