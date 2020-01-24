@@ -181,7 +181,7 @@ def on_update(delta_time):
 
             if ball_x[index] == 1400:
                 score += 1
-                if score == 1:
+                if score == 26:
                     screen = "done"
 
 def on_draw():
@@ -238,8 +238,8 @@ def on_key_press(key, modifiers):
     """[controls the key press when pressed]
     
     Arguments:
-        key {[type]} -- [description]
-        modifiers {[type]} -- [description]
+        key {[bool]} -- [which key is pressed]
+        modifiers {[bool]} -- [keys that modify speed etc.]
     """
     global left_pressed, right_pressed, screen
 
@@ -260,8 +260,8 @@ def on_key_release(key, modifiers):
     """[controls the key press when released]
     
     Arguments:
-        key {[type]} -- [description]
-        modifiers {[type]} -- [description]
+        key {[bool]} -- [which key is released]
+        modifiers {[bool]} -- [keys that modify speed etc. when released]
     """
     global left_pressed, right_pressed, screen
     
