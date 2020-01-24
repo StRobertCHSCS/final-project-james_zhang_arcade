@@ -46,12 +46,6 @@ if screen == "dead":
         ball_x = [0, -200, -400, -600, -800, -1000, -1200, -1400, -1600, -1800, -2000, -2200, -2400, -2600, -2800, -3000, -3100, -3200, -3300, -3400, -3500 -3600, -3700, -3800, -3900, -4000]
         ball_y = [230]*26
 
-# reset location of balls if dead
-if screen == "actually_dead":
-    for _ in range(5):
-        ball_x = [0, -200, -400, -600, -800]
-        ball_y = [230, 230, 230, 230, 230]
-    
 def draw_background_scenery():
     """[draw the background for the game]
     """
@@ -219,7 +213,7 @@ def on_draw():
             arcade.draw_circle_filled(x, y, 30, arcade.color.YELLOW)
 
         # score counter
-        arcade.draw_text("Score:" + str(score), 1250, 760, arcade.color.BLACK)
+        arcade.draw_text("Score:" + str(score), 1050, 760, arcade.color.BLACK)
         
     # draw screen when done game
     if screen == "done":
