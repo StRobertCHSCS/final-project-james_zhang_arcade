@@ -17,7 +17,7 @@ Everytime you bring a ball to the other side, your score will be increased by 1.
 - Overview of The Game's General Design
 ![alt text](/Images/Game.PNG "Overview of The Game's General Design")
 - Game start screen
-![alt text](C:\Users\ducky\final-project-james_zhang_arcade\Images\game_start.png "Game start screen")
+![alt text](\Images\game_start.png "Game start screen")
 - Game death screen
 ![alt text](/Images/death_screen.PNG "Game death screen")
 - Game victory screen
