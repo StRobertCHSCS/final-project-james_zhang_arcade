@@ -15,11 +15,11 @@ Everytime you bring a ball to the other side, your score will be increased by 1.
 
 # Screen Mockups
 - Overview of The Game's General Design
-![GitHub Logo](/Images/Game.PNG)
+![alt text](/Images/Game.PNG "Overview of The Game's General Design")
 - Game start screen
-![alt text](\Images\game_start.PNG)
+![alt text](/Images/game_start.PNG "Game start screen")
 - Game death screen
-![GitHub Logo](/Images/death_screen.PNG)
+![alt text](/Images/death_screen.PNG "Game death screen")
 - Game victory screen
-![GitHub Logo](/Images/complete_screen.PNG)
+![alt text](/Images/complete_screen.PNG "Game victory screen")
 
